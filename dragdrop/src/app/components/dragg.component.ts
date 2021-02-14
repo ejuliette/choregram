@@ -13,10 +13,7 @@ export class DraggableComponent  {
 
   dragPosition = {x: 0, y: 0};
 
-  changePosition() {
-    console.log('cHALUT');
-    this.dragPosition = {x: this.dragPosition.x + 50, y: this.dragPosition.y + 50};
-  }
+
 
   
 }

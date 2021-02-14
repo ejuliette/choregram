@@ -27,10 +27,7 @@ const factory = this.resolver.resolveComponentFactory(DraggableComponent);
     alert("hi")
   }
 
-  changePosition() {
-    console.log('CECI EST UN TEST');
-    
-  }
+
 
 
 }
