@@ -12,11 +12,3 @@ body {
   width: 100%;
   height: 100%;
 } /* just to be sure these are full screen*/
-
-canvas {
-  margin: 20;
-  width: 800px;
-  height: 600px;
-  display: block;
-  background-color: lightgray;
-} /* To remove the scrollbars */
