@@ -1,26 +1,31 @@
 
 <p>
-  Hello Juliette
+  Hello Juliette 
 </p>
  
 
+
+
+<button (click)="add()"> Ajouter Danseur </button>
+
+
+
+
+
+<div *ngFor="let number of numbers">
+  <div  id='number' cdkDrag (CdkDragEnd)="create($event)">
+    {{number}}
+  </div>
+</div>
+
+
+
+
  
 <canvas #ele id="canvas" ></canvas>
-  <div  cdkDrag (CdkDragEnd)="create($event)">
-  Pauline
-</div>
+ 
 
-<div  cdkDrag (CdkDragEnd)="create($event)">
-  Justine
-</div>
 
-<div  cdkDrag (CdkDragEnd)="create($event)">
-  Antoine
-</div>
-
-<div   cdkDrag (CdkDragEnd)="create($event)">
-  Margot
-</div>
 
 
 
