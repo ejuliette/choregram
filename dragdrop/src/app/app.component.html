@@ -1,32 +1,28 @@
-
-
 <p>
-  Hello Juliette
- </p>
- <button (click)="add()"> Ajouter Danseur </button>
-  
- <button (click)="savePlacement()"> Enregistrer cette position </button>
-  
- <button (click)="affichePosition()"> Affiche une position </button>
-  
-  
- <div style="position: relative; left: 30px; top: 100px; height: 400px; width: 800px; background-color: lightgray" class="container">
-  <div *ngFor="let danseur of danseurs; let index = index" >
-  
-  
-  <div
-    style="height: 20px; width: 20px; background-color: white"
-    cdkDrag [cdkDragFreeDragPosition]="dragPositions[index]"
+  Bienvenue sur Choregram ! 
+</p>
+ 
+<button (click)="add()"> Ajouter Danseur </button>
+
+
+<div style="position: relative; left: 30px; top: 100px; height: 400px; width: 800px; background-color: lightgray" class="container">
+  <div *ngFor="let number of numbers">
+
+  <div 
+    style="height: 20px; width: 20px; background-color: white" 
+    cdkDrag 
     cdkDragBoundary=".container"
-    (cdkDragEnded)="onDragEnded($event, index)">
-    {{danseur.id}}
+    (cdkDragEnded)="onDragEnded($event)">
+    {{number}}
   </div>
-  
- </div>
-  
- </div>
- 
- 
+
+</div>
+
+</div>
+
+
+
+
 
 
 
