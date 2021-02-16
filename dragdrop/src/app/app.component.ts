@@ -1,49 +1,67 @@
 import { Component, VERSION,ViewChild,ViewContainerRef,ComponentFactoryResolver } from '@angular/core';
-import { DraggableComponent } from './components/dragg.component';
-
+import { Danseur } from './models/danseur.model';
+import { Placement } from './models/placement.model';
+import { Position } from './models/position.model';
+ 
 @Component({
-  selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ]
+ selector: 'my-app',
+ templateUrl: './app.component.html',
+ styleUrls: [ './app.component.css' ]
 })
+ 
 export class AppComponent  {
-  numbers: number[] = [];
-  count = 0;
-
-      componentRef: any;
-  @ViewChild('ele', { read: ViewContainerRef }) entry: ViewContainerRef;
-
-  constructor(private resolver: ComponentFactoryResolver){}
-
-  add() {
-    this.numbers = [ this.numbers.length, ...this.numbers];
-    this.count = this.numbers.length;
-  }
-
-
-
-  onDragEnded(event) {
-    let element = event.source.getRootElement();
-    let boundingClientRect = element.getBoundingClientRect();
-    let parentPosition = this.getPosition(element);
-    console.log('x: ' + (boundingClientRect.x - parentPosition.left), 'y: ' + (boundingClientRect.y - parentPosition.top));
-    
-  }
-
-  getPosition(el) {
-    let x = 0;
-    let y = 0;
-    while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-      x += el.offsetLeft - el.scrollLeft;
-      y += el.offsetTop - el.scrollTop;
-      el = el.offsetParent;
-    }
-    return { top: y, left: x };
-  }
-
-
-
-
-
+ danseurs: Danseur[] = [];
+ placement = new Placement();
+ dragPositions : Position[] = [];
+ 
+ 
+     componentRef: any;
+ @ViewChild('ele', { read: ViewContainerRef }) entry: ViewContainerRef;
+ 
+ constructor(private resolver: ComponentFactoryResolver){}
+ 
+ add() {
+   let danseur = new Danseur();
+   danseur.id = this.danseurs.length+1;
+   this.danseurs.push(danseur);
+ }
+ 
+ onDragEnded(event, index) {
+   console.log(event.source.getFreeDragPosition());
+   console.log(index);
+   let danseurCourant = this.danseurs[index];
+   danseurCourant.x = event.source.getFreeDragPosition().x;
+   danseurCourant.y = event.source.getFreeDragPosition().y;
+   console.log(this.danseurs);
+ 
+ }
+ savePlacement(){
+   this.placement.id = 1;
+   this.placement.nom = 'triangle';
+   this.placement.listeDanseurs = this.danseurs;
+ }
+ 
+ affichePosition(){
+   this.danseurs = this.placement.listeDanseurs;
+   console.log(this.danseurs[0]);
+   this.dragPositions[0] = {x : this.danseurs[0].x, y : this.danseurs[0].y};
+   this.dragPositions[1] = {x : 150, y: 150};
+   this.dragPositions[2] = {x : 200, y: 200};
+ 
+   /*
+   for (let i = 0; i<this.danseurs.length; i++)
+   {
+     this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y};
+ 
+   }
+  */
+   console.log(this.dragPositions);
+ 
+ }
+ 
+ 
 }
+ 
+
+
 
