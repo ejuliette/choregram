@@ -1,8 +1,7 @@
 import { Component, VERSION,ViewChild,ViewContainerRef,ComponentFactoryResolver } from '@angular/core';
-import { DraggableComponent } from './components/dragg.component';
-import { Danseur } from './modeles/danseur.model';
-import { Placement } from './modeles/placement.model';
-import { Position } from './modeles/position.model';
+import { Danseur } from './models/danseur.model';
+import { Placement } from './models/placement.model';
+import { Position } from './models/position.model';
  
 @Component({
  selector: 'my-app',
