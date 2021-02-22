@@ -11,16 +11,17 @@
   
   
  <div style="position: relative; left: 30px; top: 100px; height: 400px; width: 800px; background-color: lightgray" class="container">
-  <div *ngFor="let danseur of danseurs; let index = index" >
+  <div class = "wrapper" *ngFor="let danseur of danseurs; let index = index" >
   
   
-  <div
-    style="height: 20px; width: 20px; background-color: white"
-    cdkDrag [cdkDragFreeDragPosition]="dragPositions[index]"
-    cdkDragBoundary=".container"
-    (cdkDragEnded)="onDragEnded($event, index)">
-    {{danseur.id}}
-  </div>
+    <div
+      class = "theDiv"
+      style="height: 20px; width: 20px; background-color: white"
+      cdkDrag [cdkDragFreeDragPosition]="dragPositions[index]"
+      cdkDragBoundary=".container"
+      (cdkDragEnded)="onDragEnded($event, index)">
+      {{danseur.id}}
+    </div>
   
  </div>
   

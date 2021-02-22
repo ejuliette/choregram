@@ -21,7 +21,7 @@ export class AppComponent  {
  constructor(private resolver: ComponentFactoryResolver){}
  
  add() {
-   let danseur = new Danseur();
+   let danseur = new Danseur(0,0);
    danseur.id = this.danseurs.length+1;
    this.danseurs.push(danseur);
  }
@@ -55,6 +55,10 @@ export class AppComponent  {
  
    }
   */
+
+
+
+
    console.log(this.dragPositions);
  
  }
