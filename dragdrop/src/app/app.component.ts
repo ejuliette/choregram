@@ -11,7 +11,7 @@ import { Position } from './models/position.model';
  
 export class AppComponent  {
  danseurs: Danseur[] = [];
- placement = new Placement();
+ placementEnr = new Placement();
  dragPositions : Position[] = [];
  
  
@@ -36,27 +36,47 @@ export class AppComponent  {
  
  }
  savePlacement(){
-   this.placement.id = 1;
-   this.placement.nom = 'triangle';
-   this.placement.listeDanseurs = this.danseurs;
+   this.placementEnr.id = 1;
+   this.placementEnr.nom = 'triangle';
+   this.placementEnr.listeDanseurs = [new Danseur(0,0)];
+
+
+   for (let i = 0; i<this.danseurs.length; i++)
+   {
+    let danseurEtudie = new Danseur(0,0);
+    danseurEtudie.id = i+1 ;
+    danseurEtudie.x = this.danseurs[i].x ;
+    danseurEtudie.y = this.danseurs[i].y ;
+    this.placementEnr.listeDanseurs[i] = danseurEtudie;
+   }
+
+
  }
  
  affichePosition(){
-   this.danseurs = this.placement.listeDanseurs;
-   console.log(this.danseurs[0]);
-   this.dragPositions[0] = {x : this.danseurs[0].x, y : this.danseurs[0].y};
-   this.dragPositions[1] = {x : 150, y: 150};
-   this.dragPositions[2] = {x : 200, y: 200};
+
+  console.log('AFFICHAGE');
+  console.log('placement enregistré');
+  console.log(this.placementEnr.listeDanseurs);
+
+
+  
+  for (let i = 0; i<this.danseurs.length; i++)
+   {
+     this.danseurs[i] = this.placementEnr.listeDanseurs[i];
  
-   /*
+   }
+   
+
+   console.log('position affichée');
+   console.log(this.danseurs);
+
+   
    for (let i = 0; i<this.danseurs.length; i++)
    {
      this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y};
  
    }
-  */
-
-
 
 
    console.log(this.dragPositions);
