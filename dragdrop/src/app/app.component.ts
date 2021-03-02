@@ -1,7 +1,9 @@
-import { Component, VERSION,ViewChild,ViewContainerRef,ComponentFactoryResolver } from '@angular/core';
+import { Component, VERSION,ViewChild,ViewContainerRef,ComponentFactoryResolver, ElementRef } from '@angular/core';
 import { Danseur } from './models/danseur.model';
 import { Placement } from './models/placement.model';
 import { Position } from './models/position.model';
+
+
  
 @Component({
  selector: 'my-app',
@@ -13,6 +15,11 @@ export class AppComponent  {
  danseurs: Danseur[] = [];
  placementEnr = new Placement();
  dragPositions : Position[] = [];
+
+ loop =  null;
+ test = 0;
+ arret = false;
+
  
  
      componentRef: any;
@@ -53,6 +60,41 @@ export class AppComponent  {
 
  }
  
+
+ mettreEnMouvement()
+{
+  
+  this.loop = setInterval(() => {
+    for (let i = 0; i<this.danseurs.length; i++)
+    {
+      this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y + 1};
+      this.danseurs[i].x = this.danseurs[i].x + 1 ;
+      this.danseurs[i].y = this.danseurs[i].y + 1 ;
+      this.detectePositionSuivante();
+    }
+    
+   }, 25);
+  
+ }
+
+ detectePositionSuivante(){
+
+  console.log(this.arret);
+  if(this.arret==true)
+  {
+    clearInterval(this.loop);
+    this.arret=false;
+  }
+  
+ }
+
+ stop()
+ {
+   this.arret = true;
+ }
+
+
+
  affichePosition(){
 
   console.log('AFFICHAGE');

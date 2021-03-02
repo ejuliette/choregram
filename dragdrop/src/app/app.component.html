@@ -8,8 +8,12 @@
  <button (click)="savePlacement()"> Enregistrer cette position </button>
   
  <button (click)="affichePosition()"> Affiche une position </button>
+
+ <button (click)="mettreEnMouvement()"> Start </button>
+
+ <button (click)="stop()"> Stop </button>
   
-  
+
  <div style="position: relative; left: 30px; top: 100px; height: 400px; width: 800px; background-color: lightgray" class="container">
   <div class = "wrapper" *ngFor="let danseur of danseurs; let index = index" >
   
@@ -26,6 +30,7 @@
  </div>
   
  </div>
+
  
  
  
