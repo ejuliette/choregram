@@ -20,6 +20,7 @@ export class AppComponent  {
  danseurPasY = [];
  loop =  null;
  arret = false;
+ tousEnPlace = false;
 
  
  
@@ -80,31 +81,14 @@ export class AppComponent  {
 
  detectePositionSuivante(){
 
-  for (let i = 0; i<this.danseurs.length; i++)
-    {
-      if(Math.abs(this.placementEnr.listeDanseurs[i].x - this.danseurs[i].x)<5 && Math.abs(this.placementEnr.listeDanseurs[i].y - this.danseurs[i].y)<5)
+  this.verifTousEnPlace()
+
+      if(this.tousEnPlace==true)
         {
-          clearInterval(this.loop);
-          
-          this.danseurs[i].y = this.placementEnr.listeDanseurs[i].y;
-          this.danseurs[i].x = this.placementEnr.listeDanseurs[i].x;
-          this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y};
-          
-
-          console.log("COORDO OBJ");
-          console.log(this.danseurs[0].y);
-          console.log("COORDO ARRÊT");
-          console.log(this.placementEnr.listeDanseurs[0].y);
-          console.log("COORDO OBJ ROUND ");
-          console.log(Math.round(this.danseurs[0].y));
-          console.log("COORDO ARRÊT ROUND");
-          console.log(Math.round(this.placementEnr.listeDanseurs[0].y));
-          
-
-
+          clearInterval(this.loop)
+          this.tousEnPlace=false;
         }
-
-    }
+    
 
   if(this.arret==true)
   {
@@ -120,6 +104,24 @@ export class AppComponent  {
    this.arret = true;
  }
 
+ verifTousEnPlace()
+ {
+   let ok = true;
+
+  for (let i = 0; i<this.danseurs.length; i++)
+  {
+   if(this.placementEnr.listeDanseurs[i].x != this.danseurs[i].x || this.placementEnr.listeDanseurs[i].y != this.danseurs[i].y)
+   {
+     ok = false;
+   }
+  }
+
+  if(ok==true)
+  this.tousEnPlace = true;
+ }
+ 
+
+
 
  versProchainePosition(){
    this.calculPas();
@@ -132,10 +134,18 @@ export class AppComponent  {
    this.loop = setInterval(() => {
     for (let i = 0; i<this.danseurs.length; i++)
     {
+      this.detectePositionSuivante();
+
       this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y + 1};
       this.danseurs[i].x = this.danseurs[i].x + this.danseurPasX[i] ;
       this.danseurs[i].y = this.danseurs[i].y + this.danseurPasY[i] ;
-      this.detectePositionSuivante();
+      
+      if(Math.abs(this.placementEnr.listeDanseurs[i].x - this.danseurs[i].x)<5 && Math.abs(this.placementEnr.listeDanseurs[i].y - this.danseurs[i].y)<5)
+      {
+        this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y};
+        this.danseurs[i].y = this.placementEnr.listeDanseurs[i].y;
+        this.danseurs[i].x = this.placementEnr.listeDanseurs[i].x;
+      }
     }
     
    }, 25);
@@ -149,26 +159,32 @@ calculPas(){
   {
   let variationX = this.placementEnr.listeDanseurs[i].x - this.danseurs[i].x;
   let variationY = this.placementEnr.listeDanseurs[i].y - this.danseurs[i].y;
-  let distDirecte = Math.round(Math.sqrt(variationX*variationX-variationY*variationY));
+  let distDirecte = Math.round(Math.sqrt(variationX*variationX+variationY*variationY));
   let d = distDirecte/50;
-  let tan = Math.abs(variationY)/Math.abs(variationX);
-  let angle = Math.atan(tan);
-  let pasX = Math.abs(Math.cos(angle))*d;
-  let pasY = Math.abs(Math.sin(angle))*d;
+  let pasX=0;
+  let pasY=0;
+  
+      let tan = Math.abs(variationY)/Math.abs(variationX);
+      let angle = Math.atan(tan);
+      pasX = Math.abs(Math.cos(angle))*d;
+      pasY = Math.abs(Math.sin(angle))*d;
 
-  if(variationX<=0 && variationY<=0)//Prochain point en bas à gauche
-  {
-    pasX=-pasX;
-    pasY=-pasY;
-  }
-  else if(variationX>=0 && variationY<=0)//Prochain point en bas à droite
-  {
-    pasY=-pasY;
-  }
-  else if(variationX<=0 && variationY>=0)//Prochain point en haut à gauche
-  {
-    pasX=-pasX;
-  }
+      if(variationX<=0 && variationY<=0)//Prochain point en bas à gauche
+        {
+          pasX=-pasX;
+          pasY=-pasY;
+        }
+      else if(variationX>=0 && variationY<=0)//Prochain point en bas à droite
+        {
+          pasY=-pasY;
+        }
+      else if(variationX<=0 && variationY>=0)//Prochain point en haut à gauche
+        {
+          pasX=-pasX;
+        }
+  
+  
+
 
   this.danseurPasX[i] = pasX;
   this.danseurPasY[i] = pasY;
