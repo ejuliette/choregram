@@ -16,8 +16,9 @@ export class AppComponent  {
  placementEnr = new Placement();
  dragPositions : Position[] = [];
 
+ danseurPasX = [];
+ danseurPasY = [];
  loop =  null;
- test = 0;
  arret = false;
 
  
@@ -85,6 +86,10 @@ export class AppComponent  {
     clearInterval(this.loop);
     this.arret=false;
   }
+  else if(Math.round(this.danseurs[0].y) == Math.round(this.placementEnr.listeDanseurs[0].y) && Math.round(this.danseurs[0].x) == Math.round(this.placementEnr.listeDanseurs[0].x))
+  {
+    clearInterval(this.loop);
+  }
   
  }
 
@@ -94,6 +99,58 @@ export class AppComponent  {
  }
 
 
+
+
+
+ versProchainePosition(){
+   this.calculPas(1);
+
+   console.log(this.danseurPasX[0]);
+
+   this.loop = setInterval(() => {
+    for (let i = 0; i<this.danseurs.length; i++)
+    {
+      this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y + 1};
+      this.danseurs[i].x = this.danseurs[i].x + this.danseurPasX[0] ;
+      this.danseurs[i].y = this.danseurs[i].y + this.danseurPasY[0] ;
+      this.detectePositionSuivante();
+    }
+    
+   }, 25);
+
+ }
+
+
+calculPas(d){
+
+  let variationX = this.placementEnr.listeDanseurs[0].x - this.danseurs[0].x;
+  let variationY = this.placementEnr.listeDanseurs[0].y - this.danseurs[0].y;
+  let distDirecte = Math.round(Math.sqrt(variationX*variationX-variationY*variationY));
+  let tan = Math.abs(variationY)/Math.abs(variationX);
+  let angle = Math.atan(tan);
+  let pasX = Math.abs(Math.cos(angle))*d;
+  let pasY = Math.abs(Math.sin(angle))*d;
+
+  if(variationX<=0 && variationY<=0)//Prochain point en bas à gauche
+  {
+    pasX=-pasX;
+    pasY=-pasY;
+  }
+  else if(variationX>=0 && variationY<=0)//Prochain point en bas à droite
+  {
+    pasY=-pasY;
+  }
+  else if(variationX<=0 && variationY>=0)//Prochain point en haut à gauche
+  {
+    pasX=-pasX;
+  }
+
+  this.danseurPasX[0] = pasX;
+  this.danseurPasY[0] = pasY;
+
+  
+
+}
 
  affichePosition(){
 
