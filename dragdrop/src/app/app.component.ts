@@ -22,7 +22,6 @@ export class AppComponent  {
  loop =  null;
  loop1 =  null;
  arret = false;
- tousEnPlace = false;
 
  indicePlacement = 1;
  
@@ -66,12 +65,39 @@ export class AppComponent  {
  }
 
 
+<<<<<<< HEAD
  detectePositionSuivante2(initial : Placement, final : Placement){
   this.verifTousEnPlace2(initial,final)
   if(this.tousEnPlace==true) //Tous les danseurs sont bien placés
     {
       clearInterval(this.loop)
       this.tousEnPlace=false;
+=======
+  for (let i = 0; i<this.danseurs.length; i++)
+    {
+      if(Math.abs(this.placementEnr.listeDanseurs[i].x - this.danseurs[i].x)<5 && Math.abs(this.placementEnr.listeDanseurs[i].y - this.danseurs[i].y)<5)
+        {
+          clearInterval(this.loop);
+          
+          this.danseurs[i].y = this.placementEnr.listeDanseurs[i].y;
+          this.danseurs[i].x = this.placementEnr.listeDanseurs[i].x;
+          this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y};
+          
+
+          console.log("COORDO OBJ");
+          console.log(this.danseurs[0].y);
+          console.log("COORDO ARRÊT");
+          console.log(this.placementEnr.listeDanseurs[0].y);
+          console.log("COORDO OBJ ROUND ");
+          console.log(Math.round(this.danseurs[0].y));
+          console.log("COORDO ARRÊT ROUND");
+          console.log(Math.round(this.placementEnr.listeDanseurs[0].y));
+          
+
+
+        }
+
+>>>>>>> parent of 132bed3d (s'arrête au bon endorit en même temps)
     }
 
   if(this.arret==true) //L'utilisateur a cliqué sur le bouton stop 
@@ -86,6 +112,7 @@ export class AppComponent  {
    this.arret = true;
  }
 
+<<<<<<< HEAD
  verifTousEnPlace2(initial : Placement, final : Placement)
  {
   let ok = true;
@@ -108,12 +135,15 @@ visionnerChore()
 
   /*
   this.loop1 = setInterval(() => { 
+=======
+>>>>>>> parent of 132bed3d (s'arrête au bon endorit en même temps)
 
     this.changementPosition(this.choregraphieVisionnee.listePlacements[this.indicePlacement], 
     this.choregraphieVisionnee.listePlacements[this.indicePlacement+1]);
 
     this.indicePlacement = this.indicePlacement + 1;
 
+<<<<<<< HEAD
   if(this.indicePlacement = this.choregraphieVisionnee.listePlacements.length-2)
   {
    console.log("LOURD",this.choregraphieVisionnee); //PROBLEME ICI MAUVAISES COORDO
@@ -141,6 +171,18 @@ console.log("AYO",this.choregraphieVisionnee);
 
   }
 */
+=======
+   this.loop = setInterval(() => {
+    for (let i = 0; i<this.danseurs.length; i++)
+    {
+      this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y + 1};
+      this.danseurs[i].x = this.danseurs[i].x + this.danseurPasX[i] ;
+      this.danseurs[i].y = this.danseurs[i].y + this.danseurPasY[i] ;
+      this.detectePositionSuivante();
+    }
+    
+   }, 25);
+>>>>>>> parent of 132bed3d (s'arrête au bon endorit en même temps)
 
  }
 
@@ -221,6 +263,7 @@ calculPasIniFin(placementIni : Placement, placementFin : Placement){
 
   for (let i = 0; i<placementIni.listeDanseurs.length; i++) //Autant de danseur au debut qu'à la fin
   {
+<<<<<<< HEAD
   let variationX = placementFin.listeDanseurs[i].x - placementIni.listeDanseurs[i].x;
   let variationY = placementFin.listeDanseurs[i].y - placementIni.listeDanseurs[i].y;
   let distDirecte = Math.round(Math.sqrt(variationX*variationX+variationY*variationY));
@@ -247,6 +290,30 @@ calculPasIniFin(placementIni : Placement, placementFin : Placement){
           pasX=-pasX;
         }
   
+=======
+  let variationX = this.placementEnr.listeDanseurs[i].x - this.danseurs[i].x;
+  let variationY = this.placementEnr.listeDanseurs[i].y - this.danseurs[i].y;
+  let distDirecte = Math.round(Math.sqrt(variationX*variationX-variationY*variationY));
+  let d = distDirecte/50;
+  let tan = Math.abs(variationY)/Math.abs(variationX);
+  let angle = Math.atan(tan);
+  let pasX = Math.abs(Math.cos(angle))*d;
+  let pasY = Math.abs(Math.sin(angle))*d;
+
+  if(variationX<=0 && variationY<=0)//Prochain point en bas à gauche
+  {
+    pasX=-pasX;
+    pasY=-pasY;
+  }
+  else if(variationX>=0 && variationY<=0)//Prochain point en bas à droite
+  {
+    pasY=-pasY;
+  }
+  else if(variationX<=0 && variationY>=0)//Prochain point en haut à gauche
+  {
+    pasX=-pasX;
+  }
+>>>>>>> parent of 132bed3d (s'arrête au bon endorit en même temps)
 
   this.danseurPasX[i] = pasX;
   this.danseurPasY[i] = pasY;
