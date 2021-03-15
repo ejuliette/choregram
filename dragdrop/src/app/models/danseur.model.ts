@@ -1,4 +1,4 @@
-import { Position } from "@angular/compiler";
+import { Position } from "./position.model";
 
 export class Danseur {
     nom : string;
