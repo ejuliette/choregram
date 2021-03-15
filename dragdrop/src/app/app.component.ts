@@ -285,6 +285,24 @@ calculPasIniFin(placementIni : Placement, placementFin : Placement){
    }
   
  }
+
+
+ suivant_autom()
+ {
+
+ 
+   if(this.indicePlacement < this.choregraphieVisionnee.listePlacements.length-1)
+   {
+    this.changementPosition(this.choregraphieVisionnee.listePlacements[this.indicePlacement], this.choregraphieVisionnee.listePlacements[this.indicePlacement+1]);
+    this.indicePlacement = this.indicePlacement + 1;
+   }
+   else
+   {
+    this.affichePlacement(this.choregraphieVisionnee.listePlacements[this.indicePlacement]);
+   }
+  
+ }
+ 
  
 
  precedent()
