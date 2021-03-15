@@ -59,12 +59,34 @@ export class AppComponent  {
     danseurEtudie.y = this.danseurs[i].y ;
     placement.listeDanseurs[i] = danseurEtudie;
    }
+<<<<<<< HEAD
    
    this.choregraphieVisionnee.listePlacements.push(placement);
+=======
+
+
+ }
+ 
+
+ mettreEnMouvement()
+{
+  
+  this.loop = setInterval(() => {
+    for (let i = 0; i<this.danseurs.length; i++)
+    {
+      this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y + 1};
+      this.danseurs[i].x = this.danseurs[i].x + 1 ;
+      this.danseurs[i].y = this.danseurs[i].y + 1 ;
+      this.detectePositionSuivante();
+    }
+    
+   }, 25);
+>>>>>>> parent of efe6f663 (plusieurs bougent en meme temps)
   
  }
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
  detectePositionSuivante2(initial : Placement, final : Placement){
   this.verifTousEnPlace2(initial,final)
@@ -101,10 +123,22 @@ export class AppComponent  {
     }
 
   if(this.arret==true) //L'utilisateur a cliqué sur le bouton stop 
+=======
+  console.log(this.arret);
+  if(this.arret==true)
+>>>>>>> parent of efe6f663 (plusieurs bougent en meme temps)
   {
     clearInterval(this.loop);
     this.arret=false;
   }
+<<<<<<< HEAD
+=======
+  else if(Math.round(this.danseurs[0].y) == Math.round(this.placementEnr.listeDanseurs[0].y) && Math.round(this.danseurs[0].x) == Math.round(this.placementEnr.listeDanseurs[0].x))
+  {
+    clearInterval(this.loop);
+  }
+  
+>>>>>>> parent of efe6f663 (plusieurs bougent en meme temps)
  }
 
  stop()
@@ -117,6 +151,7 @@ export class AppComponent  {
  {
   let ok = true;
 
+<<<<<<< HEAD
   for (let i = 0; i<initial.listeDanseurs.length; i++)
   {
    if(final.listeDanseurs[i].x != this.danseurs[i].x || final.listeDanseurs[i].y != this.danseurs[i].y)
@@ -132,6 +167,15 @@ export class AppComponent  {
 
 visionnerChore()
  {
+=======
+
+
+
+ versProchainePosition(){
+   this.calculPas(1);
+
+   console.log(this.danseurPasX[0]);
+>>>>>>> parent of efe6f663 (plusieurs bougent en meme temps)
 
   /*
   this.loop1 = setInterval(() => { 
@@ -176,8 +220,8 @@ console.log("AYO",this.choregraphieVisionnee);
     for (let i = 0; i<this.danseurs.length; i++)
     {
       this.dragPositions[i] = {x : this.danseurs[i].x, y: this.danseurs[i].y + 1};
-      this.danseurs[i].x = this.danseurs[i].x + this.danseurPasX[i] ;
-      this.danseurs[i].y = this.danseurs[i].y + this.danseurPasY[i] ;
+      this.danseurs[i].x = this.danseurs[i].x + this.danseurPasX[0] ;
+      this.danseurs[i].y = this.danseurs[i].y + this.danseurPasY[0] ;
       this.detectePositionSuivante();
     }
     
@@ -188,6 +232,7 @@ console.log("AYO",this.choregraphieVisionnee);
 
  changementPosition(initial : Placement, final : Placement){
 
+<<<<<<< HEAD
 
   let placementIni = new Placement;
    placementIni.listeDanseurs = [new Danseur(0,0)]; //Créer un placement vide en 0 sinon bug -> travailler à  partir du placement 1
@@ -293,8 +338,13 @@ calculPasIniFin(placementIni : Placement, placementFin : Placement){
 =======
   let variationX = this.placementEnr.listeDanseurs[i].x - this.danseurs[i].x;
   let variationY = this.placementEnr.listeDanseurs[i].y - this.danseurs[i].y;
+=======
+calculPas(d){
+
+  let variationX = this.placementEnr.listeDanseurs[0].x - this.danseurs[0].x;
+  let variationY = this.placementEnr.listeDanseurs[0].y - this.danseurs[0].y;
+>>>>>>> parent of efe6f663 (plusieurs bougent en meme temps)
   let distDirecte = Math.round(Math.sqrt(variationX*variationX-variationY*variationY));
-  let d = distDirecte/50;
   let tan = Math.abs(variationY)/Math.abs(variationX);
   let angle = Math.atan(tan);
   let pasX = Math.abs(Math.cos(angle))*d;
@@ -315,9 +365,8 @@ calculPasIniFin(placementIni : Placement, placementFin : Placement){
   }
 >>>>>>> parent of 132bed3d (s'arrête au bon endorit en même temps)
 
-  this.danseurPasX[i] = pasX;
-  this.danseurPasY[i] = pasY;
-}
+  this.danseurPasX[0] = pasX;
+  this.danseurPasY[0] = pasY;
 
   
 
